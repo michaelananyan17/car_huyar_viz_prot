@@ -198,8 +198,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         @media (max-width: 768px) {
@@ -322,46 +320,6 @@
         .car-description.active {
             max-height: 200px;
             margin-top: 10px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            border: none;
-            flex: 2;
-        }
-
-        .btn-primary:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--light);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            flex: 1;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--success);
-            transform: translateY(-3px);
         }
 
         .other-cars {
@@ -577,14 +535,6 @@
                                     </div>
                                     <div class="car-description" id="topCarDescription"></div>
                                 </div>
-                            </div>
-                            <div class="action-buttons">
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-car"></i> View Details
-                                </button>
-                                <button class="btn btn-secondary">
-                                    <i class="fas fa-heart"></i> Save
-                                </button>
                             </div>
                         </div>
                     </div>
