@@ -4,913 +4,421 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car HuyAir | Find Your Perfect Car</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
         }
 
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: var(--light);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
-            padding: 20px;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
+        /* Header */
         header {
+            background-color: var(--card-bg);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             text-align: center;
-            padding: 20px 0;
-            margin-bottom: 20px;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--success);
-        }
-
-        h1 {
-            font-size: 3rem;
-            background: linear-gradient(to right, #4cc9f0, #f72585);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .app-container {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        @media (max-width: 992px) {
-            .app-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--success);
-        }
-
-        .section-title i {
+        header h1 {
             font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
         }
 
-        .query-input {
+        main {
+            flex: 1;
+            max-width: 800px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            font-size: 1.1rem;
-            color: var(--light);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            resize: none;
+            margin: 0 auto;
+            padding: 2rem 1rem;
         }
 
-        .query-input:focus {
+        /* Search Section */
+        .search-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .search-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius);
             outline: none;
-            border-color: var(--success);
-            box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.3);
+            transition: border-color 0.2s;
+            min-width: 280px;
         }
 
-        .query-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
         }
 
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+        button.search-btn {
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 15px;
-            padding: 18px;
-            font-size: 1.2rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
             font-weight: 600;
+            border-radius: var(--border-radius);
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            transition: background-color 0.2s;
         }
 
-        .submit-btn:hover {
-            background: linear-gradient(to right, var(--secondary), var(--primary));
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
+        button.search-btn:hover {
+            background-color: var(--primary-hover);
         }
 
         .examples {
-            margin-top: 25px;
-        }
-
-        .examples-title {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: var(--light-gray);
-        }
-
-        .example-chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
         }
 
-        .example-chip {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 15px;
-            border-radius: 50px;
+        .examples span {
             font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-right: 0.5rem;
+        }
+
+        .chip {
+            background-color: #e0f2fe;
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background-color 0.2s;
         }
 
-        .example-chip:hover {
-            background: rgba(76, 201, 240, 0.2);
-            border-color: var(--success);
-            transform: translateY(-2px);
+        .chip:hover {
+            background-color: #bae6fd;
         }
 
-        .results-container {
+        /* Results Section */
+        .results-section {
+            display: none; /* Hidden by default */
+        }
+
+        .results-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-style: italic;
             display: none;
         }
 
-        .top-car {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .top-car {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .car-image {
-            border-radius: 15px;
+        /* Top Match Card */
+        .top-match-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
             overflow: hidden;
-            height: 300px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
             position: relative;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .car-image img {
+        .badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: #f59e0b;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 10;
+        }
+
+        .car-image-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 3rem;
+        }
+        
+        .car-image-placeholder img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
         }
 
-        .car-image:hover img {
-            transform: scale(1.05);
+        .card-content {
+            padding: 1.5rem;
         }
 
-        .car-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--accent);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .car-details {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .car-name {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, var(--success));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .car-price {
-            font-size: 1.8rem;
-            color: var(--success);
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .car-specs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .spec-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px 15px;
-            border-radius: 10px;
-        }
-
-        .spec-item i {
-            color: var(--success);
-            font-size: 1.2rem;
+        .card-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .description-toggle {
-            margin-bottom: 25px;
-        }
-
-        .toggle-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: var(--primary-color);
+            background: none;
+            border: none;
+            font-weight: 600;
             cursor: pointer;
-            padding: 10px 0;
-            transition: all 0.3s ease;
+            padding: 0;
+            margin-top: 1rem;
         }
 
-        .toggle-header:hover {
-            color: var(--success);
+        .description-text {
+            margin-top: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
 
-        .toggle-header i {
-            transition: transform 0.3s ease;
+        /* Secondary Recommendations */
+        .secondary-list h4 {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
 
-        .toggle-header.active i {
-            transform: rotate(180deg);
-        }
-
-        .car-description {
-            line-height: 1.6;
-            color: var(--light-gray);
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .car-description.active {
-            max-height: 200px;
-            margin-top: 10px;
-        }
-
-        .other-cars {
-            margin-top: 20px;
-        }
-
-        .other-cars-title {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: var(--light-gray);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .car-list {
+        .secondary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
         }
 
-        .car-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-
-        .car-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
-            border-color: rgba(76, 201, 240, 0.3);
-        }
-
-        .car-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .car-model {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .car-year {
-            color: var(--light-gray);
-            font-size: 0.9rem;
-        }
-
-        .car-price-small {
-            font-size: 1.1rem;
-            color: var(--success);
-            font-weight: 600;
-        }
-
-        .car-specs-small {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .spec-small {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 10px;
+        .secondary-card {
+            background: var(--card-bg);
+            padding: 1rem;
             border-radius: 8px;
-            font-size: 0.8rem;
-        }
-
-        .car-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .rating {
-            color: #ffc107;
-        }
-
-        .view-btn {
-            background: transparent;
-            color: var(--success);
-            border: 1px solid var(--success);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .view-btn:hover {
-            background: rgba(76, 201, 240, 0.1);
-        }
-
-        .loading {
-            display: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             text-align: center;
-            padding: 40px 0;
         }
 
-        .spinner {
-            width: 70px;
-            height: 70px;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            border-top: 5px solid var(--success);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+        .secondary-card .mini-img {
+            width: 100%;
+            height: 100px;
+            background-color: #f1f5f9;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .pulse {
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-
+        /* Footer */
         footer {
+            background-color: #fff;
+            border-top: 1px solid #e2e8f0;
+            padding: 2rem;
             text-align: center;
-            padding: 30px 0;
-            color: var(--light-gray);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 40px;
+            margin-top: auto;
         }
 
-        .feature-highlights {
+        .footer-features {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
+            gap: 2rem;
+            margin-bottom: 1rem;
             flex-wrap: wrap;
         }
 
-        .feature {
+        .feature-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 500;
         }
 
-        .feature i {
-            color: var(--success);
+        .feature-icon {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-car-side"></i>
-                <h1>Car HuyAir</h1>
-            </div>
-        </header>
-        
-        <div class="app-container">
-            <div class="card">
-                <h2 class="section-title"><i class="fas fa-comment-alt"></i> Describe Your Dream Car</h2>
-                <form id="carQueryForm">
-                    <textarea class="query-input" id="userQuery" placeholder="Tell us about your ideal car. For example: 'I want to buy an expensive car' or 'I need to buy a Toyota Camry, made no earlier than 2020'" rows="5"></textarea>
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-search"></i> Find My Perfect Car
-                    </button>
-                </form>
-                
-                <div class="examples">
-                    <div class="examples-title">Try these examples:</div>
-                    <div class="example-chips">
-                        <div class="example-chip" onclick="fillExample('I want to buy an expensive car')">Expensive Car</div>
-                        <div class="example-chip" onclick="fillExample('I need to buy a Toyota Camry, made no earlier than 2020')">Toyota Camry 2020+</div>
-                        <div class="example-chip" onclick="fillExample('Looking for a fuel-efficient hybrid SUV under $40,000')">Hybrid SUV under $40K</div>
-                        <div class="example-chip" onclick="fillExample('I want a luxury sedan with all-wheel drive and advanced safety features')">Luxury AWD Sedan</div>
-                        <div class="example-chip" onclick="fillExample('Sporty coupe with high horsepower for weekend drives')">Sporty Coupe</div>
-                    </div>
-                </div>
-            </div>
+
+    <header>
+        <h1>Car HuyAir</h1>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <h2>Describe Your Dream Car</h2>
             
-            <div class="card">
-                <h2 class="section-title"><i class="fas fa-car"></i> Your Recommended Cars</h2>
-                <div class="loading" id="loadingIndicator">
-                    <div class="spinner"></div>
-                    <p class="pulse">Analyzing your query and finding the best matches...</p>
+            <div class="input-group">
+                <input type="text" id="searchInput" placeholder="e.g., A reliable family SUV with good gas mileage...">
+                <button class="search-btn" onclick="findCar()">Find My Perfect Car</button>
+            </div>
+
+            <div class="examples">
+                <span>Try these examples:</span>
+                <div class="chip" onclick="setQuery('Expensive Car')">Expensive Car</div>
+                <div class="chip" onclick="setQuery('Toyota Camry 2020+')">Toyota Camry 2020+</div>
+                <div class="chip" onclick="setQuery('Hybrid SUV under $40K')">Hybrid SUV under $40K</div>
+                <div class="chip" onclick="setQuery('Luxury AWD Sedan')">Luxury AWD Sedan</div>
+                <div class="chip" onclick="setQuery('Sporty Coupe')">Sporty Coupe</div>
+            </div>
+        </section>
+
+        <div id="loadingState" class="loading-state">
+            Analyzing your query and finding the best matches...
+        </div>
+
+        <section id="resultsSection" class="results-section">
+            <h2 class="section-title">Your Recommended Cars</h2>
+
+            <div class="top-match-card">
+                <div class="badge">TOP MATCH</div>
+                <div class="car-image-placeholder">
+                    <img src="https://placehold.co/800x400/e2e8f0/1e293b?text=AI+Generated+Car+Visual" alt="Top Car">
                 </div>
-                
-                <div class="results-container" id="resultsContainer">
-                    <div class="top-car">
-                        <div class="car-image">
-                            <img id="topCarImage" src="" alt="Top Car">
-                            <div class="car-badge">
-                                <i class="fas fa-crown"></i> TOP MATCH
-                            </div>
-                        </div>
-                        <div class="car-details">
-                            <div>
-                                <h3 class="car-name" id="topCarName"></h3>
-                                <div class="car-price" id="topCarPrice"></div>
-                                <div class="car-specs" id="topCarSpecs"></div>
-                                <div class="description-toggle">
-                                    <div class="toggle-header" id="descriptionToggle">
-                                        <i class="fas fa-chevron-down"></i>
-                                        <span>View Description</span>
-                                    </div>
-                                    <div class="car-description" id="topCarDescription"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-content">
+                    <h3 id="resultTitle">2024 Future Glider X</h3>
+                    <p id="resultPrice" style="color: var(--primary-color); font-weight:bold; margin-bottom: 0.5rem;">$45,000 - $52,000</p>
                     
-                    <div class="other-cars">
-                        <h4 class="other-cars-title">
-                            <i class="fas fa-lightbulb"></i> You might also like:
-                        </h4>
-                        <div class="car-list" id="otherCarsList">
-                            <!-- Other cars will be populated here -->
-                        </div>
+                    <p class="description-text" id="resultDesc">
+                        Based on your request, this vehicle offers the perfect balance of performance and comfort. It features advanced safety systems and a fuel-efficient hybrid engine.
+                    </p>
+                    
+                    <button class="description-toggle" onclick="toggleDetails()">View Full Specs</button>
+                </div>
+            </div>
+
+            <div class="secondary-list">
+                <h4>You might also like:</h4>
+                <div class="secondary-grid">
+                    <div class="secondary-card">
+                        <div class="mini-img"></div>
+                        <div style="font-weight:600; font-size:0.9rem;">EcoRunner 2023</div>
+                        <div style="font-size:0.8rem; color:#64748b;">95% Match</div>
+                    </div>
+                    <div class="secondary-card">
+                        <div class="mini-img"></div>
+                        <div style="font-weight:600; font-size:0.9rem;">LuxStream S</div>
+                        <div style="font-size:0.8rem; color:#64748b;">88% Match</div>
+                    </div>
+                    <div class="secondary-card">
+                        <div class="mini-img"></div>
+                        <div style="font-weight:600; font-size:0.9rem;">Urban Cross</div>
+                        <div style="font-size:0.8rem; color:#64748b;">82% Match</div>
                     </div>
                 </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-features">
+            <div class="feature-item">
+                <span class="feature-icon">✨</span> AI-Powered Matching
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🔍</span> Vector Search on Real Reviews
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🎨</span> AI-Generated Visuals
             </div>
         </div>
-        
-        <footer>
-            <p>Car HuyAir &copy; 2023 | Advanced Car Recommendation System</p>
-            <div class="feature-highlights">
-                <div class="feature">
-                    <i class="fas fa-bolt"></i>
-                    <span>AI-Powered Matching</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Verified Listings</span>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-tag"></i>
-                    <span>Best Price Guarantee</span>
-                </div>
-            </div>
-        </footer>
-    </div>
+        <div class="copyright">
+            Car HuyAir © 2025 | Advanced Car Recommendation System
+        </div>
+    </footer>
 
     <script>
-        // Enhanced mock car data with more details
-        const mockCarData = {
-            "expensive car": {
-                topCar: {
-                    name: "2023 Mercedes-Benz S-Class",
-                    price: "$115,000",
-                    image: "https://images.unsplash.com/photo-1563720223480-8bfd732c6824?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    specs: [
-                        {icon: "fas fa-tachometer-alt", text: "V8 Biturbo Engine"},
-                        {icon: "fas fa-horse-head", text: "463 HP"},
-                        {icon: "fas fa-rocket", text: "0-60 mph in 4.4s"},
-                        {icon: "fas fa-snowflake", text: "All-Wheel Drive"}
-                    ],
-                    description: "The pinnacle of luxury and performance, the Mercedes-Benz S-Class offers unparalleled comfort, cutting-edge technology, and sophisticated styling that defines automotive excellence."
-                },
-                otherCars: [
-                    { 
-                        name: "2023 BMW 7 Series", 
-                        year: "2023", 
-                        price: "$96,000",
-                        specs: ["V8 Engine", "523 HP", "Luxury Package"],
-                        rating: 4.8
-                    },
-                    { 
-                        name: "2023 Audi A8", 
-                        year: "2023", 
-                        price: "$88,000",
-                        specs: ["V6 Turbo", "335 HP", "Quattro AWD"],
-                        rating: 4.7
-                    },
-                    { 
-                        name: "2023 Lexus LS", 
-                        year: "2023", 
-                        price: "$78,000",
-                        specs: ["V6 Hybrid", "354 HP", "Executive Package"],
-                        rating: 4.6
-                    },
-                    { 
-                        name: "2023 Porsche Panamera", 
-                        year: "2023", 
-                        price: "$92,000",
-                        specs: ["V6 Turbo", "325 HP", "Sport Chrono"],
-                        rating: 4.9
-                    }
-                ]
-            },
-            "toyota camry": {
-                topCar: {
-                    name: "2022 Toyota Camry XSE",
-                    price: "$32,000",
-                    image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    specs: [
-                        {icon: "fas fa-gas-pump", text: "2.5L 4-Cylinder"},
-                        {icon: "fas fa-horse-head", text: "203 HP"},
-                        {icon: "fas fa-road", text: "29 MPG City / 41 MPG Hwy"},
-                        {icon: "fas fa-cog", text: "Front-Wheel Drive"}
-                    ],
-                    description: "The 2022 Toyota Camry XSE combines sporty styling with legendary reliability. With its efficient yet powerful engine and advanced safety features, it's the perfect balance of performance and practicality."
-                },
-                otherCars: [
-                    { 
-                        name: "2022 Honda Accord", 
-                        year: "2022", 
-                        price: "$31,000",
-                        specs: ["1.5L Turbo", "192 HP", "Honda Sensing"],
-                        rating: 4.5
-                    },
-                    { 
-                        name: "2022 Hyundai Sonata", 
-                        year: "2022", 
-                        price: "$29,500",
-                        specs: ["2.5L GDI", "191 HP", "SmartSense"],
-                        rating: 4.4
-                    },
-                    { 
-                        name: "2022 Nissan Altima", 
-                        year: "2022", 
-                        price: "$30,200",
-                        specs: ["2.5L Engine", "188 HP", "ProPILOT Assist"],
-                        rating: 4.3
-                    },
-                    { 
-                        name: "2022 Kia K5", 
-                        year: "2022", 
-                        price: "$28,500",
-                        specs: ["1.6L Turbo", "180 HP", "GT-Line"],
-                        rating: 4.4
-                    }
-                ]
-            },
-            "hybrid suv": {
-                topCar: {
-                    name: "2023 Toyota RAV4 Hybrid",
-                    price: "$34,000",
-                    image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    specs: [
-                        {icon: "fas fa-leaf", text: "2.5L 4-Cylinder Hybrid"},
-                        {icon: "fas fa-horse-head", text: "219 HP"},
-                        {icon: "fas fa-road", text: "41 MPG City / 38 MPG Hwy"},
-                        {icon: "fas fa-snowflake", text: "All-Wheel Drive"}
-                    ],
-                    description: "The Toyota RAV4 Hybrid delivers exceptional fuel efficiency without sacrificing power or capability. With its spacious interior and advanced safety features, it's the perfect SUV for both city commuting and weekend adventures."
-                },
-                otherCars: [
-                    { 
-                        name: "2023 Honda CR-V Hybrid", 
-                        year: "2023", 
-                        price: "$35,200",
-                        specs: ["2.0L Hybrid", "212 HP", "Honda Sensing"],
-                        rating: 4.6
-                    },
-                    { 
-                        name: "2023 Ford Escape Hybrid", 
-                        year: "2023", 
-                        price: "$33,500",
-                        specs: ["2.5L Hybrid", "200 HP", "Co-Pilot360"],
-                        rating: 4.4
-                    },
-                    { 
-                        name: "2023 Hyundai Tucson Hybrid", 
-                        year: "2023", 
-                        price: "$34,800",
-                        specs: ["1.6L Turbo Hybrid", "226 HP", "HTRAC AWD"],
-                        rating: 4.5
-                    },
-                    { 
-                        name: "2023 Kia Sportage Hybrid", 
-                        year: "2023", 
-                        price: "$33,900",
-                        specs: ["1.6L Turbo Hybrid", "227 HP", "AWD"],
-                        rating: 4.4
-                    }
-                ]
-            },
-            "luxury sedan": {
-                topCar: {
-                    name: "2023 Audi A6",
-                    price: "$59,000",
-                    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    specs: [
-                        {icon: "fas fa-tachometer-alt", text: "3.0L V6 Turbocharged"},
-                        {icon: "fas fa-horse-head", text: "335 HP"},
-                        {icon: "fas fa-rocket", text: "0-60 mph in 4.9s"},
-                        {icon: "fas fa-snowflake", text: "Quattro All-Wheel Drive"}
-                    ],
-                    description: "The Audi A6 combines sophisticated design with cutting-edge technology and exhilarating performance. With its luxurious interior and advanced driver assistance systems, it redefines what a luxury sedan should be."
-                },
-                otherCars: [
-                    { 
-                        name: "2023 BMW 5 Series", 
-                        year: "2023", 
-                        price: "$57,500",
-                        specs: ["2.0L Turbo", "248 HP", "xDrive AWD"],
-                        rating: 4.7
-                    },
-                    { 
-                        name: "2023 Mercedes-Benz E-Class", 
-                        year: "2023", 
-                        price: "$61,000",
-                        specs: ["2.0L Turbo", "255 HP", "4MATIC AWD"],
-                        rating: 4.8
-                    },
-                    { 
-                        name: "2023 Lexus ES", 
-                        year: "2023", 
-                        price: "$52,000",
-                        specs: ["3.5L V6", "302 HP", "F Sport Design"],
-                        rating: 4.6
-                    },
-                    { 
-                        name: "2023 Genesis G80", 
-                        year: "2023", 
-                        price: "$54,000",
-                        specs: ["2.5L Turbo", "300 HP", "AWD"],
-                        rating: 4.7
-                    }
-                ]
+        function setQuery(text) {
+            document.getElementById('searchInput').value = text;
+        }
+
+        function findCar() {
+            const input = document.getElementById('searchInput').value;
+            if (!input.trim()) {
+                alert("Please describe your dream car first!");
+                return;
             }
-        };
 
-        // DOM elements
-        const carQueryForm = document.getElementById('carQueryForm');
-        const userQuery = document.getElementById('userQuery');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const resultsContainer = document.getElementById('resultsContainer');
-        const topCarImage = document.getElementById('topCarImage');
-        const topCarName = document.getElementById('topCarName');
-        const topCarPrice = document.getElementById('topCarPrice');
-        const topCarSpecs = document.getElementById('topCarSpecs');
-        const topCarDescription = document.getElementById('topCarDescription');
-        const descriptionToggle = document.getElementById('descriptionToggle');
-        const otherCarsList = document.getElementById('otherCarsList');
+            // Hide results, show loading
+            document.getElementById('resultsSection').classList.remove('active');
+            document.getElementById('loadingState').style.display = 'block';
 
-        // Form submission handler
-        carQueryForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const query = userQuery.value.trim().toLowerCase();
-            if (!query) return;
-            
-            // Show loading indicator
-            loadingIndicator.style.display = 'block';
-            resultsContainer.style.display = 'none';
-            
-            // Simulate API call with setTimeout
+            // Simulate AI delay
             setTimeout(() => {
-                processQuery(query);
-                loadingIndicator.style.display = 'none';
-                resultsContainer.style.display = 'block';
-            }, 2000);
-        });
-
-        // Process the user query and display results
-        function processQuery(query) {
-            let matchedData = null;
-            
-            // Find matching car data based on keywords
-            if (query.includes('expensive') || query.includes('luxury')) {
-                matchedData = mockCarData['expensive car'];
-            } else if (query.includes('toyota') && query.includes('camry')) {
-                matchedData = mockCarData['toyota camry'];
-            } else if (query.includes('hybrid') && query.includes('suv')) {
-                matchedData = mockCarData['hybrid suv'];
-            } else if (query.includes('luxury') && query.includes('sedan')) {
-                matchedData = mockCarData['luxury sedan'];
-            } else {
-                // Default to expensive cars if no specific match
-                matchedData = mockCarData['expensive car'];
-            }
-            
-            // Display the top car
-            displayTopCar(matchedData.topCar);
-            
-            // Display other cars
-            displayOtherCars(matchedData.otherCars);
-        }
-
-        // Display the top car
-        function displayTopCar(car) {
-            topCarImage.src = car.image;
-            topCarImage.alt = car.name;
-            topCarName.textContent = car.name;
-            topCarPrice.textContent = car.price;
-            
-            // Clear previous specs
-            topCarSpecs.innerHTML = '';
-            
-            // Add new specs
-            car.specs.forEach(spec => {
-                const specItem = document.createElement('div');
-                specItem.className = 'spec-item';
-                specItem.innerHTML = `
-                    <i class="${spec.icon}"></i>
-                    <span>${spec.text}</span>
-                `;
-                topCarSpecs.appendChild(specItem);
-            });
-            
-            topCarDescription.textContent = car.description;
-            // Reset description toggle to closed state
-            descriptionToggle.classList.remove('active');
-            topCarDescription.classList.remove('active');
-        }
-
-        // Display other cars
-        function displayOtherCars(cars) {
-            // Clear previous list
-            otherCarsList.innerHTML = '';
-            
-            // Add new cars
-            cars.forEach(car => {
-                const carCard = document.createElement('div');
-                carCard.className = 'car-card';
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('resultsSection').classList.add('active');
                 
-                // Generate star rating
-                let stars = '';
-                for (let i = 0; i < 5; i++) {
-                    if (i < Math.floor(car.rating)) {
-                        stars += '<i class="fas fa-star"></i>';
-                    } else if (i < car.rating) {
-                        stars += '<i class="fas fa-star-half-alt"></i>';
-                    } else {
-                        stars += '<i class="far fa-star"></i>';
-                    }
+                // Update title based on input (Simulated)
+                const title = document.getElementById('resultTitle');
+                if(input.toLowerCase().includes('suv')) {
+                    title.innerText = "2025 HighLand Rover Hybrid";
+                } else if (input.toLowerCase().includes('sedan')) {
+                    title.innerText = "2024 Executive Saloon S-Class";
+                } else {
+                    title.innerText = "2025 AI Recommended Choice";
                 }
-                
-                // Generate specs HTML
-                let specsHTML = '';
-                car.specs.forEach(spec => {
-                    specsHTML += `<div class="spec-small">${spec}</div>`;
-                });
-                
-                carCard.innerHTML = `
-                    <div class="car-card-header">
-                        <div>
-                            <div class="car-model">${car.name}</div>
-                            <div class="car-year">${car.year}</div>
-                        </div>
-                        <div class="car-price-small">${car.price}</div>
-                    </div>
-                    <div class="car-specs-small">
-                        ${specsHTML}
-                    </div>
-                    <div class="car-card-footer">
-                        <div class="rating">
-                            ${stars} <span>${car.rating}</span>
-                        </div>
-                        <button class="view-btn">View</button>
-                    </div>
-                `;
-                
-                otherCarsList.appendChild(carCard);
-            });
+
+            }, 1500);
         }
 
-        // Fill example query
-        function fillExample(exampleText) {
-            userQuery.value = exampleText;
+        function toggleDetails() {
+            alert("This would expand to show detailed specifications, mileage, and engine stats.");
         }
-
-        // Toggle description visibility
-        descriptionToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            topCarDescription.classList.toggle('active');
-            
-            if (this.classList.contains('active')) {
-                this.querySelector('span').textContent = 'Hide Description';
-            } else {
-                this.querySelector('span').textContent = 'View Description';
-            }
-        });
-
-        // Initialize with a default query
-        window.onload = function() {
-            fillExample('I want to buy an expensive car');
-            // Auto-submit after a short delay for demo purposes
-            setTimeout(() => {
-                carQueryForm.dispatchEvent(new Event('submit'));
-            }, 500);
-        };
     </script>
 </body>
 </html>
