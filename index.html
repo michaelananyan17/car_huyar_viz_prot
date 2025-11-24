@@ -160,8 +160,6 @@
             transform: translateY(0);
         }
 
-        /* Removed Examples CSS classes */
-
         .results-container {
             display: none;
         }
@@ -185,6 +183,7 @@
             height: 300px;
             position: relative;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            background: #000;
         }
 
         .car-image img {
@@ -220,7 +219,7 @@
         }
 
         .car-name {
-            font-size: 1.8rem; /* Adjusted slightly for long names */
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 10px;
             background: linear-gradient(to right, #fff, var(--success));
@@ -433,6 +432,13 @@
             100% { opacity: 0.6; }
         }
 
+        .error-message {
+            margin-top: 15px;
+            color: #ff6b6b;
+            text-align: center;
+            display: none;
+        }
+
         footer {
             text-align: center;
             padding: 30px 0;
@@ -478,9 +484,9 @@
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-search"></i> Find My Perfect Car
                     </button>
+                    <div id="errorMessage" class="error-message"></div>
                 </form>
-                
-                </div>
+            </div>
             
             <div class="card">
                 <h2 class="section-title"><i class="fas fa-car"></i> Your Recommended Cars</h2>
@@ -492,7 +498,7 @@
                 <div class="results-container" id="resultsContainer">
                     <div class="top-car">
                         <div class="car-image">
-                            <img id="topCarImage" src="" alt="Top Car">
+                            <img id="topCarImage" src="https://images.unsplash.com/photo-1549921296-3c52d935b9a1?auto=format&fit=crop&w=1000&q=80" alt="Top Car">
                             <div class="car-badge">
                                 <i class="fas fa-crown"></i> TOP MATCH
                             </div>
@@ -502,8 +508,7 @@
                                 <h3 class="car-name" id="topCarName"></h3>
                                 <div class="price-rating-row">
                                     <div class="car-price" id="topCarPrice"></div>
-                                    <div class="car-rating-display" id="topCarRating">
-                                        </div>
+                                    <div class="car-rating-display" id="topCarRating"></div>
                                 </div>
                                 <div class="car-specs" id="topCarSpecs">
                                     </div>
@@ -538,176 +543,22 @@
                 </div>
                 <div class="feature">
                     <i class="fas fa-shield-alt"></i>
-                    <span>Verified Listings</span>
+                    <span>Real-time Generation</span>
                 </div>
                 <div class="feature">
                     <i class="fas fa-tag"></i>
-                    <span>Best Price Guarantee</span>
+                    <span>Intelligent Analysis</span>
                 </div>
             </div>
         </footer>
     </div>
 
     <script>
-        // Updated mock car data to match new formatting requirements
-        // Name format: YEAR MANUFACTURER MODEL
-        // Added specific fields: match, hp, transmission, rating
-        const mockCarData = {
-            "expensive car": {
-                topCar: {
-                    name: "2023 MERCEDES-BENZ S-CLASS",
-                    price: "$115,000",
-                    image: "https://images.unsplash.com/photo-1563720223480-8bfd732c6824?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    match: 98,
-                    hp: "463 HP",
-                    transmission: "Automatic",
-                    rating: 4.9,
-                    description: "The pinnacle of luxury and performance, the Mercedes-Benz S-Class offers unparalleled comfort, cutting-edge technology, and sophisticated styling that defines automotive excellence."
-                },
-                otherCars: [
-                    { 
-                        name: "2023 BMW 7 SERIES", 
-                        price: "$96,000",
-                        specs: ["V8 Engine", "523 HP", "Luxury Package"],
-                        rating: 4.8
-                    },
-                    { 
-                        name: "2023 AUDI A8", 
-                        price: "$88,000",
-                        specs: ["V6 Turbo", "335 HP", "Quattro AWD"],
-                        rating: 4.7
-                    },
-                    { 
-                        name: "2023 LEXUS LS", 
-                        price: "$78,000",
-                        specs: ["V6 Hybrid", "354 HP", "Executive Package"],
-                        rating: 4.6
-                    },
-                    { 
-                        name: "2023 PORSCHE PANAMERA", 
-                        price: "$92,000",
-                        specs: ["V6 Turbo", "325 HP", "Sport Chrono"],
-                        rating: 4.9
-                    }
-                ]
-            },
-            "toyota camry": {
-                topCar: {
-                    name: "2022 TOYOTA CAMRY",
-                    price: "$32,000",
-                    image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    match: 95,
-                    hp: "203 HP",
-                    transmission: "Automatic",
-                    rating: 4.7,
-                    description: "The 2022 Toyota Camry XSE combines sporty styling with legendary reliability. With its efficient yet powerful engine and advanced safety features, it's the perfect balance of performance and practicality."
-                },
-                otherCars: [
-                    { 
-                        name: "2022 HONDA ACCORD", 
-                        price: "$31,000",
-                        specs: ["1.5L Turbo", "192 HP", "Honda Sensing"],
-                        rating: 4.5
-                    },
-                    { 
-                        name: "2022 HYUNDAI SONATA", 
-                        price: "$29,500",
-                        specs: ["2.5L GDI", "191 HP", "SmartSense"],
-                        rating: 4.4
-                    },
-                    { 
-                        name: "2022 NISSAN ALTIMA", 
-                        price: "$30,200",
-                        specs: ["2.5L Engine", "188 HP", "ProPILOT Assist"],
-                        rating: 4.3
-                    },
-                    { 
-                        name: "2022 KIA K5", 
-                        price: "$28,500",
-                        specs: ["1.6L Turbo", "180 HP", "GT-Line"],
-                        rating: 4.4
-                    }
-                ]
-            },
-            "hybrid suv": {
-                topCar: {
-                    name: "2023 TOYOTA RAV4 HYBRID",
-                    price: "$34,000",
-                    image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    match: 92,
-                    hp: "219 HP",
-                    transmission: "Automatic",
-                    rating: 4.8,
-                    description: "The Toyota RAV4 Hybrid delivers exceptional fuel efficiency without sacrificing power or capability. With its spacious interior and advanced safety features, it's the perfect SUV for both city commuting and weekend adventures."
-                },
-                otherCars: [
-                    { 
-                        name: "2023 HONDA CR-V HYBRID", 
-                        price: "$35,200",
-                        specs: ["2.0L Hybrid", "212 HP", "Honda Sensing"],
-                        rating: 4.6
-                    },
-                    { 
-                        name: "2023 FORD ESCAPE HYBRID", 
-                        price: "$33,500",
-                        specs: ["2.5L Hybrid", "200 HP", "Co-Pilot360"],
-                        rating: 4.4
-                    },
-                    { 
-                        name: "2023 HYUNDAI TUCSON HYBRID", 
-                        price: "$34,800",
-                        specs: ["1.6L Turbo Hybrid", "226 HP", "HTRAC AWD"],
-                        rating: 4.5
-                    },
-                    { 
-                        name: "2023 KIA SPORTAGE HYBRID", 
-                        price: "$33,900",
-                        specs: ["1.6L Turbo Hybrid", "227 HP", "AWD"],
-                        rating: 4.4
-                    }
-                ]
-            },
-            "luxury sedan": {
-                topCar: {
-                    name: "2023 AUDI A6",
-                    price: "$59,000",
-                    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-                    match: 89,
-                    hp: "335 HP",
-                    transmission: "Automatic",
-                    rating: 4.8,
-                    description: "The Audi A6 combines sophisticated design with cutting-edge technology and exhilarating performance. With its luxurious interior and advanced driver assistance systems, it redefines what a luxury sedan should be."
-                },
-                otherCars: [
-                    { 
-                        name: "2023 BMW 5 SERIES", 
-                        price: "$57,500",
-                        specs: ["2.0L Turbo", "248 HP", "xDrive AWD"],
-                        rating: 4.7
-                    },
-                    { 
-                        name: "2023 MERCEDES-BENZ E-CLASS", 
-                        price: "$61,000",
-                        specs: ["2.0L Turbo", "255 HP", "4MATIC AWD"],
-                        rating: 4.8
-                    },
-                    { 
-                        name: "2023 LEXUS ES", 
-                        price: "$52,000",
-                        specs: ["3.5L V6", "302 HP", "F Sport Design"],
-                        rating: 4.6
-                    },
-                    { 
-                        name: "2023 GENESIS G80", 
-                        price: "$54,000",
-                        specs: ["2.5L Turbo", "300 HP", "AWD"],
-                        rating: 4.7
-                    }
-                ]
-            }
-        };
+        // --- CONSTANTS: AI Backend URLs ---
+        const RECSYS_URL = "https://dadaqagan-car-huyar.hf.space/recommend";
+        const IMAGE_URL = "https://odd-cloud-8496.islamyang123.workers.dev/";
 
-        // DOM elements
+        // --- DOM Elements ---
         const carQueryForm = document.getElementById('carQueryForm');
         const userQuery = document.getElementById('userQuery');
         const loadingIndicator = document.getElementById('loadingIndicator');
@@ -720,52 +571,18 @@
         const topCarDescription = document.getElementById('topCarDescription');
         const descriptionToggle = document.getElementById('descriptionToggle');
         const otherCarsList = document.getElementById('otherCarsList');
+        const errorMessage = document.getElementById('errorMessage');
 
-        // Form submission handler
-        carQueryForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const query = userQuery.value.trim().toLowerCase();
-            if (!query) return;
-            
-            // Show loading indicator
-            loadingIndicator.style.display = 'block';
-            resultsContainer.style.display = 'none';
-            
-            // Simulate API call with setTimeout
-            setTimeout(() => {
-                processQuery(query);
-                loadingIndicator.style.display = 'none';
-                resultsContainer.style.display = 'block';
-            }, 2000);
-        });
-
-        // Process the user query and display results
-        function processQuery(query) {
-            let matchedData = null;
-            
-            // Find matching car data based on keywords
-            if (query.includes('expensive') || query.includes('luxury')) {
-                matchedData = mockCarData['expensive car'];
-            } else if (query.includes('toyota') && query.includes('camry')) {
-                matchedData = mockCarData['toyota camry'];
-            } else if (query.includes('hybrid') && query.includes('suv')) {
-                matchedData = mockCarData['hybrid suv'];
-            } else if (query.includes('luxury') && query.includes('sedan')) {
-                matchedData = mockCarData['luxury sedan'];
-            } else {
-                // Default to expensive cars if no specific match
-                matchedData = mockCarData['expensive car'];
-            }
-            
-            // Display the top car
-            displayTopCar(matchedData.topCar);
-            
-            // Display other cars
-            displayOtherCars(matchedData.otherCars);
+        // --- Helper: Clean Text from AI ---
+        function cleanText(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/^\[|\]$/g, "")
+                .replace(/['"]/g, "")
+                .trim();
         }
 
-        // Helper function to generate star HTML
+        // --- Helper: Generate Star HTML ---
         function generateStars(ratingValue) {
             let stars = '';
             for (let i = 0; i < 5; i++) {
@@ -780,93 +597,188 @@
             return stars;
         }
 
-        // Display the top car
+        // --- AI: Fetch Recommendations ---
+        async function fetchRecommendations(query) {
+            const res = await fetch(RECSYS_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query, top_k: 6 })
+            });
+            if (!res.ok) {
+                throw new Error("Recsys error: " + res.status);
+            }
+            const data = await res.json();
+            return data.items || [];
+        }
+
+        // --- AI: Generate Image ---
+        async function generateTopCarImage(item) {
+            try {
+                // Set loading state image
+                topCarImage.src = "https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"; 
+                
+                const brand = item.brand || "";
+                const model = item.model || "";
+                const prompt = `${brand} ${model}, modern car, 3/4 front view, studio lighting, ultra realistic render, 4k`;
+
+                const res = await fetch(IMAGE_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ prompt })
+                });
+
+                if (!res.ok) throw new Error("Image worker error: " + res.status);
+
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                topCarImage.src = url;
+            } catch (e) {
+                console.error("Image generation failed:", e);
+                // Fallback image
+                topCarImage.src = "https://images.unsplash.com/photo-1549921296-3c52d935b9a1?auto=format&fit=crop&w=1000&q=80";
+            }
+        }
+
+        // --- Logic: Process Results and Update UI ---
+        async function processQuery(query) {
+            loadingIndicator.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            try {
+                // 1. Get Data from AI
+                const items = await fetchRecommendations(query);
+                
+                if (!items || items.length === 0) {
+                    throw new Error("No matches found.");
+                }
+
+                const topCar = items[0];
+                const otherCars = items.slice(1);
+
+                // 2. Display Top Car
+                displayTopCar(topCar);
+                
+                // 3. Display Other Cars
+                displayOtherCars(otherCars);
+
+                // 4. Show Results
+                loadingIndicator.style.display = 'none';
+                resultsContainer.style.display = 'block';
+
+                // 5. Generate Image for Top Car (Async in background)
+                generateTopCarImage(topCar);
+
+            } catch (err) {
+                console.error(err);
+                loadingIndicator.style.display = 'none';
+                errorMessage.textContent = "We couldn't find matches for that request. Please try again.";
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        // --- Display Logic: Top Car ---
         function displayTopCar(car) {
-            topCarImage.src = car.image;
-            topCarImage.alt = car.name;
-            topCarName.textContent = car.name;
-            topCarPrice.textContent = car.price;
+            // Data Parsing
+            const brand = (car.brand || "Unknown").toUpperCase();
+            const model = (car.model || "").toUpperCase();
+            const year = car.year || "2024"; // Default to current year if not provided by AI
+            const price = car.price || "Price TBD"; // Handle missing price
+            const rating = (car.rating != null ? car.rating : 4.5).toFixed(1);
+            const matchScore = (car.fit_score != null ? Math.round(car.fit_score * 100) : 85);
             
-            // Render Rating next to price
+            // Text Formatting: YEAR MANUFACTURER MODEL
+            topCarName.textContent = `${year} ${brand} ${model}`;
+            topCarPrice.textContent = price;
+
+            // Rating
             topCarRating.innerHTML = `
-                ${generateStars(car.rating)}
-                <span style="font-weight: 600;">${car.rating}</span>
+                ${generateStars(rating)}
+                <span style="font-weight: 600;">${rating}</span>
             `;
-            
-            // Clear previous specs
+
+            // Specs Cards - Populating with Data or Smart Defaults
             topCarSpecs.innerHTML = '';
-            
-            // Add specific info cards as requested (Match %, HP, Mileage, Transmission)
-            
+
             // Card 1: Match %
             const matchCard = document.createElement('div');
             matchCard.className = 'spec-item';
             matchCard.innerHTML = `
                 <i class="fas fa-check-circle"></i>
-                <span style="color: var(--green-text); font-weight: bold;">Match: ${car.match}%</span>
+                <span style="color: var(--green-text); font-weight: bold;">Match: ${matchScore}%</span>
             `;
             topCarSpecs.appendChild(matchCard);
 
             // Card 2: Horsepower
+            // Extract from 'pros' or 'features' if specific field missing, else placeholder
+            const hpText = car.horsepower ? car.horsepower : "Est. 300 HP";
             const hpCard = document.createElement('div');
             hpCard.className = 'spec-item';
             hpCard.innerHTML = `
                 <i class="fas fa-horse-head"></i>
-                <span>${car.hp}</span>
+                <span>${hpText}</span>
             `;
             topCarSpecs.appendChild(hpCard);
 
-            // Card 3: Mileage (Placeholder)
+            // Card 3: Milage
+            // As requested, this text is static "Milage: " for now, or real data if available
+            const mileageText = car.mileage ? car.mileage : "Milage: --";
             const mileageCard = document.createElement('div');
             mileageCard.className = 'spec-item';
             mileageCard.innerHTML = `
                 <i class="fas fa-road"></i>
-                <span>Milage: </span>
+                <span>${mileageText}</span>
             `;
             topCarSpecs.appendChild(mileageCard);
 
             // Card 4: Transmission
+            const transText = car.transmission ? car.transmission : "Automatic";
             const transCard = document.createElement('div');
             transCard.className = 'spec-item';
             transCard.innerHTML = `
                 <i class="fas fa-cog"></i>
-                <span>${car.transmission}</span>
+                <span>${transText}</span>
             `;
             topCarSpecs.appendChild(transCard);
-            
-            topCarDescription.textContent = car.description;
-            // Reset description toggle to closed state
+
+            // Description
+            const desc = car.why || car.pros || "An excellent choice based on your preferences.";
+            topCarDescription.textContent = cleanText(desc);
+
+            // Reset Toggle
             descriptionToggle.classList.remove('active');
             topCarDescription.classList.remove('active');
+            descriptionToggle.querySelector('span').textContent = 'View Description';
         }
 
-        // Display other cars
+        // --- Display Logic: Other Cars ---
         function displayOtherCars(cars) {
-            // Clear previous list
             otherCarsList.innerHTML = '';
-            
-            // Add new cars
+
             cars.forEach(car => {
+                const brand = (car.brand || "").toUpperCase();
+                const model = (car.model || "").toUpperCase();
+                const year = car.year || "2024";
+                const price = car.price || "Check Dealer";
+                const rating = (car.rating != null ? car.rating : 4.0).toFixed(1);
+                
+                // Use pros or default text for specs
+                const specText = car.pros ? cleanText(car.pros).substring(0, 40) + "..." : "Great Value";
+
                 const carCard = document.createElement('div');
                 carCard.className = 'car-card';
                 
-                // Generate specs HTML for small cards
-                let specsHTML = '';
-                car.specs.forEach(spec => {
-                    specsHTML += `<div class="spec-small">${spec}</div>`;
-                });
-                
                 carCard.innerHTML = `
                     <div class="car-card-header">
-                        <div class="car-model">${car.name}</div>
-                        <div class="car-price-small">${car.price}</div>
+                        <div class="car-model">${year} ${brand} ${model}</div>
+                        <div class="car-price-small">${price}</div>
                     </div>
                     <div class="car-specs-small">
-                        ${specsHTML}
+                        <div class="spec-small">${specText}</div>
                     </div>
                     <div class="car-card-footer">
                         <div class="rating">
-                            ${generateStars(car.rating)} <span>${car.rating}</span>
+                            ${generateStars(rating)} <span>${rating}</span>
                         </div>
                         <button class="view-btn">View</button>
                     </div>
@@ -876,7 +788,17 @@
             });
         }
 
-        // Toggle description visibility
+        // --- Event Listeners ---
+
+        // Form Submit
+        carQueryForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = userQuery.value.trim();
+            if (!query) return;
+            processQuery(query);
+        });
+
+        // Description Toggle
         descriptionToggle.addEventListener('click', function() {
             this.classList.toggle('active');
             topCarDescription.classList.toggle('active');
@@ -888,15 +810,11 @@
             }
         });
 
-        // Initialize with a default query
+        // Initialize with default text but DO NOT auto-submit (User must click)
         window.onload = function() {
-            // Auto-submit after a short delay for demo purposes
-            // We removed the fillExample function as we removed the buttons
             userQuery.value = 'I want to buy an expensive car';
-            setTimeout(() => {
-                carQueryForm.dispatchEvent(new Event('submit'));
-            }, 500);
         };
+
     </script>
 </body>
 </html>
